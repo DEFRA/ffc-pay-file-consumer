@@ -9,7 +9,23 @@ If the file is present, the file will be copied and the original will be moved t
 
 ## Example message
 
-> TBC
+```
+{ 
+ "AzureAdapterType": "AzureFileStorage", 
+ "AzureFileShare": "fixeddestinationreports", 
+ "AzureSecretName": "storage-account-integration-key", 
+ "AzureStorageAccount": "predaxinfst1202", 
+ "AzureStorageType": "FixedDestinationReports", 
+ "BusinessEventId": "RsfFileToTransferToOnPremBusinessEvent", 
+ "ControlNumber": 5637236081, 
+ "EventId": "708F37F0-D1D9-45FC-BF80-ABE590E5CE28", 
+ "EventTime": "/Date(1643734354000)/", 
+ "MajorVersion": 0, 
+ "MinorVersion": 0, 
+ "OutputFileName": "PFSI_Settlements2022-02-18.csv", 
+ "ProcessingLocation": "REDACTED FOLDER" 
+}
+```
 
 ## Prerequisites
 
