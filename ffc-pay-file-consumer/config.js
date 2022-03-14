@@ -4,6 +4,5 @@ module.exports = {
   containerName: 'dax',
   inboundFolder: 'inbound',
   archiveFolder: 'archive',
-  shareName: process.env.DAX_SHARE_NAME,
   totalRetries: 10
 }
