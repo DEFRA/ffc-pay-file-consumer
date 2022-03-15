@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   ffc-pay-file-consumer-azurite:
@@ -7,9 +7,9 @@ services:
     volumes:
       - azurite_data:/data
     ports:
-      - "10010:10000"
-      - "10011:10001"
-      - "10012:10002"
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
 
 volumes:
   azurite_data:
