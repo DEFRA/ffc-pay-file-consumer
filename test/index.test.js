@@ -1,34 +1,38 @@
 jest.mock('../ffc-pay-file-consumer/config', () => ({ totalRetries: 1 }))
-const sender = require('../ffc-pay-file-consumer')
+const consumer = require('../ffc-pay-file-consumer')
 const mockContext = require('./mock-context')
 jest.mock('../ffc-pay-file-consumer/storage')
 const mockStorage = require('../ffc-pay-file-consumer/storage')
 let message
-const blob = {}
+const file = {}
 const content = 'content'
 
-describe('sender', () => {
+describe('consumer', () => {
   beforeEach(() => {
-    message = { filename: 'my-file.dat', ledger: 'AP' }
-    mockStorage.getFile.mockReturnValue({ blob, content })
+    message = { 
+      AzureFileShare: 'dax',
+      OutputFileName 'file.csv',
+      ProcessingLocation: 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder'
+    }
+    mockStorage.getFile.mockReturnValue({ file, content })
   })
 
   afterEach(() => {
     jest.clearAllMocks()
   })
 
-  test('should write file to share', async () => {
-    await sender(mockContext, message)
-    expect(mockStorage.writeFile).toHaveBeenCalledWith(message.filename, message.ledger, content)
+  test('should write file to blob', async () => {
+    await consumer(mockContext, message)
+    expect(mockStorage.writeFile).toHaveBeenCalledWith(message.filename, content)
   })
 
-  test('should archive original blob', async () => {
-    await sender(mockContext, message)
-    expect(mockStorage.archiveFile).toHaveBeenCalledWith(message.filename, blob)
+  test('should delete original share', async () => {
+    await consumer(mockContext, message)
+    expect(mockStorage.deleteFile).toHaveBeenCalledWith(file)
   })
 
   test('should throw error if file missing', async () => {
     mockStorage.getFile.mockImplementation(() => { throw new Error() })
-    await expect(sender(mockContext, message)).rejects.toThrow()
+    await expect(consumer(mockContext, message)).rejects.toThrow()
   })
 })
