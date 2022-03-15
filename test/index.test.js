@@ -9,10 +9,10 @@ const content = 'content'
 
 describe('consumer', () => {
   beforeEach(() => {
-    message = { 
+    message = {
       AzureFileShare: 'dax',
-      OutputFileName 'file.csv',
-      ProcessingLocation: 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder'
+      OutputFileName: 'file.csv',
+      ProcessingLocation: 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder'
     }
     mockStorage.getFile.mockReturnValue({ file, content })
   })
@@ -21,9 +21,14 @@ describe('consumer', () => {
     jest.clearAllMocks()
   })
 
+  test('should sanitize share filepath', async () => {
+    await consumer(mockContext, message)
+    expect(mockStorage.getFile).toHaveBeenCalledWith(mockContext, 'folder/subfolder/file.csv')
+  })
+
   test('should write file to blob', async () => {
     await consumer(mockContext, message)
-    expect(mockStorage.writeFile).toHaveBeenCalledWith(message.filename, content)
+    expect(mockStorage.writeFile).toHaveBeenCalledWith(message.OutputFileName, content)
   })
 
   test('should delete original share', async () => {
