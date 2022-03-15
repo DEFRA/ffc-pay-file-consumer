@@ -68,7 +68,7 @@ It's likely that the Service Bus topic and subscription names will need to be am
   "Values": {
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AzureWebJobsStorage": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10007/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10008/devstoreaccount1;",
-    "BATCH_STORAGE": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10007/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10008/devstoreaccount1;",
+    "BATCH_STORAGE": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10007/devstoreaccount1;",
     "DAX_STORAGE": "SHARE CONNECTION STING",
     "MESSAGE_CONNECTION": "SERVICE BUS CONNECTION STRING",
     "FILECONSUME_TOPIC_ADDRESS": "ffc-pay-file-send",
@@ -77,6 +77,8 @@ It's likely that the Service Bus topic and subscription names will need to be am
   }
 }
 ```
+> Note: if you wish to run this service end to end with [Payment Responses](https://github.com/DEFRA/ffc-pay-responses), then update the `BATCH_STORAGE` environment variable to use port `10002` instead of `10007`.
+
 
 ## Running the application
 
