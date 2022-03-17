@@ -23,7 +23,7 @@ If the file is present, the file will be copied and the original will be moved t
  "MajorVersion": 0, 
  "MinorVersion": 0, 
  "OutputFileName": "PFSI_Settlements2022-02-18.csv", 
- "ProcessingLocation": "REDACTED FOLDER" 
+ "ProcessingLocation": "SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder" 
 }
 ```
 > Note: `Processing Location` provided in the message will be a corporate network address rather that a folder path within Azure File share.  In order to determine the folder path, we will [parse](./ffc-pay-file-consumer/parse-message.js) so only the folders remain.
