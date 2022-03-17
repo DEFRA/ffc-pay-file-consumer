@@ -15,7 +15,8 @@ describe('consumer', () => {
     message = {
       AzureFileShare: 'dax',
       OutputFileName: 'file.csv',
-      ProcessingLocation: 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder'
+      ProcessingLocation: 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder',
+      AzureAdapterType: 'AzureFileStorage'
     }
     mockStorage.getFile.mockReturnValue({ file, content })
   })
