@@ -26,13 +26,14 @@ If the file is present, the file will be copied and the original will be moved t
  "ProcessingLocation": "REDACTED FOLDER" 
 }
 ```
+> Note: `Processing Location` provided in the message will be a corporate network address rather that a folder path within Azure File share.  In order to determine the folder path, we will [parse](./ffc-pay-file-consumer/parse-message.js) so only the folders remain.
 
 ## Prerequisites
 
-- Node.js 16+
+- Node.js LTS 16
 - access to an Azure blob storage account (see options below)
 - access to Azure file share storage account
-- [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Clinux%2Ccsharp%2Cportal%2Cbash)
+- [Azure Functions Core Tools V3](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Clinux%2Ccsharp%2Cportal%2Cbash)
 
 ## Azure Storage
 
@@ -71,9 +72,8 @@ It's likely that the Service Bus topic and subscription names will need to be am
     "BATCH_STORAGE": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10007/devstoreaccount1;",
     "DAX_STORAGE": "SHARE CONNECTION STING",
     "MESSAGE_CONNECTION": "SERVICE BUS CONNECTION STRING",
-    "FILECONSUME_TOPIC_ADDRESS": "ffc-pay-file-send",
+    "FILECONSUME_TOPIC_ADDRESS": "ffc-pay-file-consume",
     "FILECONSUME_SUBSCRIPTION_ADDRESS": "ffc-pay-file-consumer",
-    "DAX_SHARE_NAME": "dax"
   }
 }
 ```

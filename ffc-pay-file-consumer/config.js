@@ -3,6 +3,5 @@ module.exports = {
   shareConnectionString: process.env.DAX_STORAGE,
   containerName: 'dax',
   inboundFolder: 'inbound',
-  archiveFolder: 'archive',
   totalRetries: 10
 }
