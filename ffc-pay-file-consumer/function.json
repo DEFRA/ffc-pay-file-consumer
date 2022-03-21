@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "mySbMsg",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "topicName": "%FILECONSUME_TOPIC_ADDRESS%",
+      "subscriptionName": "%FILECONSUME_SUBSCRIPTION_ADDRESS%",
+      "connection": "MESSAGE_CONNECTION"
+    }
+  ]
+}
