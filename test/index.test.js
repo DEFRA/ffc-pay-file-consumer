@@ -27,7 +27,7 @@ describe('consumer', () => {
 
   test('should sanitize share filepath', async () => {
     await consumer(mockContext, message)
-    expect(mockStorage.getFile).toHaveBeenCalledWith(mockContext, 'folder/subfolder/file.csv')
+    expect(mockStorage.getFile).toHaveBeenCalledWith(mockContext, 'SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder/file.csv')
   })
 
   test('should write file to blob', async () => {
