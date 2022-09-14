@@ -1,66 +1,25 @@
-# FFC Pay file consumer
-FFC Pay service to transfer files from Dynamics 365 (DAX) to payment service.
+# FFC Pay File Consumer
 
-This function is triggered from a service bus message requesting a file transfer from an Azure File Share to Azure Blob Storage.
+## Description
 
-The message contains the name of the file that should already have been written to a file share location.
+FFC Azure function app to transfer, return and acknowledge files from a Dynamics 365 (DAX) Azure File Share to an Azure Blob Storage location.
 
-If the file is present, the file will be copied and the original will be moved to an archive folder.
+For how the repo fits into the architecture and what components or dependencies it interacts with please refer to the following diagram: [ffc-pay.drawio](https://github.com/DEFRA/ffc-diagrams/blob/main/Payments/ffc-pay.drawio)
 
-## Example message
+# Prerequisites
 
-```
-{ 
- "AzureAdapterType": "AzureFileStorage", 
- "AzureFileShare": "fixeddestinationreports", 
- "AzureSecretName": "storage-account-integration-key", 
- "AzureStorageAccount": "predaxinfst1202", 
- "AzureStorageType": "FixedDestinationReports", 
- "BusinessEventId": "RsfFileToTransferToOnPremBusinessEvent", 
- "ControlNumber": 5637236081, 
- "EventId": "708F37F0-D1D9-45FC-BF80-ABE590E5CE28", 
- "EventTime": "/Date(1643734354000)/", 
- "MajorVersion": 0, 
- "MinorVersion": 0, 
- "OutputFileName": "PFSI_Settlements2022-02-18.csv", 
- "ProcessingLocation": "SERVER.earth.gsi.gov.uk/SchemeFinance/AXWorkspaceSchemeFinance/PRODUCTION/folder/subfolder" 
-}
-```
-
-## Prerequisites
+## Software required
 
 - Node.js LTS 16
-- access to an Azure blob storage account (see options below)
-- access to Azure file share storage account
+- Access to an instance of [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/)
+- Access to an instance of [Azure File Share](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction)
 - [Azure Functions Core Tools V3](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Clinux%2Ccsharp%2Cportal%2Cbash)
-
-## Azure Storage
-
-To support local development of Azure blob storage, there are several options:
-
-1. Use the Docker Compose file in this repository (recommended).
-
-Running the below command will run an Azurite container.
-
-`docker-compose up -d`
-
-2. Install Azurite locally
-
-See [Microsoft's guide](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio) for information.
-
-3. Use Azure cloud hosted storage
-
-It is not possible to use Azurite for file share storage.  For this reason an actual Azure cloud hosted share need to be accessible to run the application.
 
 ## Configuration
 
 The `local.settings.json` is required to hold all local development environment values.  As this file contains sensitive values, it is excluded from source control.
 
 Example:
-
-For blob, examples assumes option `1` is taken above and therefore shows connection strings for local  Azurite container.
-
-It's likely that the Service Bus topic and subscription names will need to be amended to match those owned by the developer.
 
 ```
 {
@@ -76,28 +35,55 @@ It's likely that the Service Bus topic and subscription names will need to be am
   }
 }
 ```
-> Note: if you wish to run this service end to end with [Payment Responses](https://github.com/DEFRA/ffc-pay-responses), then update the `BATCH_STORAGE` environment variable to use port `10002` instead of `10007`.
+> Note: if you wish to run this service end to end, then update the `BATCH_STORAGE` environment variable to use port `10002` instead of `10007`.
 
+### Azure Blob Storage
 
-## Running the application
+This repository pushes files from Azure Blob storage to a `dax` container.
 
-Use the convenience script, `./scripts/start`
+# How to start the File Consumer
 
-### Running tests
-
+The service can be run using the convenience script 
 ```
-# Run all tests
-./scripts/test
+./scripts/start
+```
 
-# Run tests with file watch
+# How to get an output
+
+**To transfer a file from DAX**  
+**Pre-requisite:** DAX has created a file in it's Azure File Share location.  
+**Input:** A message is sent from DAX containing the name of the file to be transferred.  
+**Output:** The referenced file is copied to the configured Azure Blob Storage location and the original is deleted.  
+
+# How to stop the File Consumer
+
+The service can be stopped by using the convenience script 
+```
+./scripts/stop
+```
+
+# How to test the File Consumer
+
+Tests can be run in several modes:
+- [Run tests and exit](#run-tests-and-exit)
+- [Run tests with file watch](#run-tests-with-file-watch)
+
+## Run tests and exit
+```
+./scripts/test
+```
+
+## Run tests with file watch
+```
 ./scripts/test -w
 ```
+
 
 ## CI pipeline
 
 This service uses the [FFC CI pipeline](https://github.com/DEFRA/ffc-jenkins-pipeline-library)
 
-## Licence
+# Licence
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:
 
