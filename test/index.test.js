@@ -44,4 +44,9 @@ describe('consumer', () => {
     mockStorage.getFile.mockImplementation(() => { throw new Error() })
     await expect(consumer(mockContext, message)).rejects.toThrow()
   })
+
+  test('should throw error if message schema invalid', async () => {
+    message = {}
+    await expect(consumer(mockContext, message)).rejects.toThrow()
+  })
 })
