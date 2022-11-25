@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-file-consumer",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Transfer files from DAX",
   "author": "Defra",
   "contributors": [
@@ -31,13 +31,13 @@
     ]
   },
   "devDependencies": {
-    "jest": "^27.5.1",
-    "jest-junit": "^13.0.0",
-    "standard": "^16.0.4"
+    "jest": "27.5.1",
+    "jest-junit": "13.0.0",
+    "standard": "16.0.4"
   },
   "dependencies": {
-    "@azure/storage-blob": "^12.9.0",
-    "@azure/storage-file-share": "^12.9.0",
-    "joi": "^17.6.0"
+    "@azure/storage-blob": "12.9.0",
+    "@azure/storage-file-share": "12.9.0",
+    "joi": "17.6.0"
   }
 }
